@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Notebook\StoreRequest;
 use App\Http\Requests\Notebook\UpdateRequest;
+use App\Http\Resources\NotebookResource;
 use App\Models\Notebook;
 use Illuminate\Http\Response;
 
@@ -15,7 +16,7 @@ class NotebookController extends Controller
      */
     public function index()
     {
-        return Notebook::all();
+        return NotebookResource::collection(Notebook::all());
     }
 
     /**
@@ -24,7 +25,7 @@ class NotebookController extends Controller
     public function store(StoreRequest $request)
     {
         // Возвращаем в ответе созданную книжку.
-        return Notebook::create($request->validated());
+        return new NotebookResource(Notebook::create($request->validated()));
     }
 
     /**
@@ -32,7 +33,7 @@ class NotebookController extends Controller
      */
     public function show(Notebook $notebook)
     {
-        return $notebook;
+        return new NotebookResource($notebook);
     }
 
     /**
@@ -41,7 +42,7 @@ class NotebookController extends Controller
     public function update(UpdateRequest $request, Notebook $notebook)
     {
         $notebook->update($request->validated());
-        return $notebook;
+        return new NotebookResource($notebook);
     }
 
     /**
