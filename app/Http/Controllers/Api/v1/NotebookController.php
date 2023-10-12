@@ -3,20 +3,33 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Notebook\PaginationRequest;
 use App\Http\Requests\Notebook\StoreRequest;
 use App\Http\Requests\Notebook\UpdateRequest;
 use App\Http\Resources\NotebookResource;
 use App\Models\Notebook;
+use App\Service\Notebook\Service;
 use Illuminate\Http\Response;
 
 class NotebookController extends Controller
 {
+    // Объявление сервиса
+    private $service;
+
+    // Инъекция зависимости
+    public function __construct(Service $service) {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PaginationRequest $request)
     {
-        return NotebookResource::collection(Notebook::all());
+        $data = $request->validated();
+
+        // Решил использовать сервис, так как код стал слишком объемным для контроллера.
+        return $this->service->index($data);
     }
 
     /**
