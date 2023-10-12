@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Notebook\PaginationRequest;
-use App\Http\Requests\Notebook\StoreRequest;
-use App\Http\Requests\Notebook\UpdateRequest;
-use App\Http\Resources\NotebookResource;
-use App\Models\Notebook;
-use App\Service\Notebook\Service;
+use App\Http\Requests\Contact\PaginationRequest;
+use App\Http\Requests\Contact\StoreRequest;
+use App\Http\Requests\Contact\UpdateRequest;
+use App\Http\Resources\ContactResource;
+use App\Models\Contact;
+use App\Service\Contact\Service;
 use Illuminate\Http\Response;
 
-class NotebookController extends Controller
+class ContactController extends Controller
 {
     // Объявление сервиса
     private $service;
@@ -37,33 +37,35 @@ class NotebookController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        // Возвращаем в ответе созданную книжку.
-        return new NotebookResource(Notebook::create($request->validated()));
+        // Возвращаем в ответе созданный контакт.
+        return new ContactResource(Contact::create($request->validated()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Notebook $notebook)
+    public function show(Contact $contact)
     {
-        return new NotebookResource($notebook);
+        return new ContactResource($contact);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Notebook $notebook)
+    public function update(UpdateRequest $request, int $id)
     {
-        $notebook->update($request->validated());
-        return new NotebookResource($notebook);
+        $contact = Contact::findOrFail($id);
+        $contact->update($request->validated());
+        return new ContactResource($contact);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Notebook $notebook)
+    public function destroy(int $id)
     {
-        $notebook->delete();
+        $contact = Contact::findOrFail($id);
+        $contact->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }
 }

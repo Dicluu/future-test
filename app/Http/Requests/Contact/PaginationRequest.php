@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Notebook;
+namespace App\Http\Requests\Contact;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class PaginationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,14 +21,10 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'full_name' => 'required|max:80',
-            'company_name' => 'nullable|string',
-            'phone' => 'nullable|unique:notebooks,phone',
-            'email' => 'required|unique:notebooks,email',
-            'date_of_birth' => 'nullable|date',
-            'img_url' => 'nullable|string'
+            'paginate' => 'nullable|bool',
+            'simple' => 'nullable|bool',
+            'count' => 'nullable|int|min:1'
         ];
     }
 }

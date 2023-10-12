@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\v1\NotebookController;
+use App\Http\Controllers\Api\v1\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResources([
-    'notebook' => NotebookController::class
+    'notebook' => ContactController::class
 ]);

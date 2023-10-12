@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Service\Notebook;
+namespace App\Service\Contact;
 
-use App\Http\Requests\Notebook\PaginationRequest;
-use App\Http\Resources\NotebookResource;
-use App\Models\Notebook;
+use App\Http\Resources\ContactResource;
+use App\Models\Contact;
 
 class Service {
 
@@ -21,16 +20,16 @@ class Service {
             // Если параметр simple=true, тогда пагинация будет без использования HATEOAS.
             if (isset($data['simple']) && $data['simple']) {
                 // Вариант пагинации с исключительно только объектами в теле ответа.
-                $notebooks = Notebook::simplePaginate($count)->items();
-                return NotebookResource::collection($notebooks);
+                $contacts = Contact::simplePaginate($count)->items();
+                return ContactResource::collection($contacts);
             }
 
             // Вариант пагинации с использованием HATEOAS из коробки.
-            $notebooks = Notebook::simplePaginate($count);
-            return NotebookResource::collection($notebooks);
+            $contacts = Contact::simplePaginate($count);
+            return ContactResource::collection($contacts);
         }
 
-        return NotebookResource::collection(Notebook::all());
+        return ContactResource::collection(Contact::all());
     }
 
 }
