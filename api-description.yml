@@ -1,6 +1,7 @@
 openapi: 3.0.0
 info:
   title: Архив записных книжек OpenAPI спецификация
+  description: 'Notebook - API, обрабатывающий простые CRUD операции, с занесением/просмотром/изменением/удалением контактов'
   version: 0.0.1
 servers:
   - url: http://localhost:8000/api/v1
@@ -143,6 +144,10 @@ paths:
       responses:
         '200':
           description: Успешный ответ с измененным контактом в теле.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Contact_Data"
         '404':
           description: Ошибка, указывающая, что контакт с таким идентификатором не найден.
         '422':
@@ -205,7 +210,5 @@ components:
       type: object
       properties:
         data:
-          type: object
-          items:
-            $ref: "#/components/schemas/Contact"
+          $ref: "#/components/schemas/Contact"
 
