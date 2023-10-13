@@ -1,0 +1,211 @@
+openapi: 3.0.0
+info:
+  title: Архив записных книжек OpenAPI спецификация
+  version: 0.0.1
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Dev server
+paths:
+  /notebook:
+    get:
+      tags:
+        - Notebook
+      summary: Метод получения контактов.
+      parameters:
+        - name: paginate
+          in: query
+          required: false
+          description: Параметр, указывающий на использование пагинации
+          schema:
+            type: integer
+        - name: simple
+          in: query
+          required: false
+          description: Параметр, указывающий на использование пагинации без HATEOAS.
+          schema:
+            type: integer
+        - name: count
+          in: query
+          required: false
+          description: Параметр, указывающий на количество объектов в ответе.
+          schema:
+            type: integer
+        - name: page
+          in: query
+          required: false
+          description: Параметр, указывающий на страницу в пагинации.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ со списком всех контактов.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Contacts"
+    post:
+      summary: Метод создания нового контакта.
+      tags:
+        - Notebook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_name:
+                  type: string
+                  example: Unique name
+                company_name:
+                  type: string
+                  example: Unique company
+                phone:
+                  type: string
+                  example: +9-99-99-999-9
+                email:
+                  type: string
+                  example: uniquemail@unique.com
+                date_of_birth:
+                  type: string
+                  example: 2021-02-17
+                img_url:
+                  type: string
+                  example: https://via.placeholder.com/640x480.png/00ccdd?text=magnam
+      responses:
+        '201':
+          description: Успешное создание контакта и возвращение его в теле ответа.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Contact_Data"
+        '422':
+          description: Ошибка, указывающая на невалидность/неуникальность данных.
+  /notebook/{id}:
+    get:
+      summary: Метод получения контакта по идентификатору.
+      tags:
+        - Notebook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор контакта.
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Успешный ответ с контактом соответствующей идентификатору в теле ответа.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Contact_Data"
+        '404':
+          description: Ошибка, указывающая на то, что контакт с таким идентификатором не найдена.
+    put:
+      summary: Метод обновление контакта по идентификатору.
+      tags:
+        - Notebook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_name:
+                  type: string
+                  example: Maxime Wuckert
+                company_name:
+                  type: string
+                  example: Marquardt-Balistreri
+                phone:
+                  type: string
+                  example: +1-971-544-1512
+                email:
+                  type: string
+                  example: nikita13@example.com
+                date_of_birth:
+                  type: string
+                  example: 2021-02-17
+                img_url:
+                  type: string
+                  example: https://via.placeholder.com/640x480.png/00ccdd?text=magnam
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор контакта
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Успешный ответ с измененным контактом в теле.
+        '404':
+          description: Ошибка, указывающая, что контакт с таким идентификатором не найден.
+        '422':
+          description: Ошибка, указывающая, что введенные данные не уникальны.
+    delete:
+      summary: Метод удаления контакта по идентификатору.
+      tags:
+        - Notebook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор контакта.
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '204':
+          description: Успешный ответ с пустым телом.
+        '404':
+          description: Ошибка, указывающая, что контакт с таким идентификатором не найден.
+components:
+  schemas:
+    Contact:
+      type: object
+      required:
+        - full_name
+        - phone
+        - email
+      properties:
+        id:
+          type: integer
+          example: 1
+        full_name:
+          type: string
+          example: Maxime Wuckert
+        company_name:
+          type: string
+          example: Marquardt-Balistreri
+        phone:
+          type: string
+          example: +1-971-544-1512
+        email:
+          type: string
+          example: nikita13@example.com
+        date_of_birth:
+          type: string
+          example: 2021-02-17
+        img_url:
+          type: string
+          example: https://via.placeholder.com/640x480.png/00ccdd?text=magnam
+    Contacts:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Contact"
+    Contact_Data:
+      type: object
+      properties:
+        data:
+          type: object
+          items:
+            $ref: "#/components/schemas/Contact"
+

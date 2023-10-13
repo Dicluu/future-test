@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa322c53454393ed775cfe4807d54a50",
+    "content-hash": "c92e01cffbcb9b81c8e69ba9e9b0ce89",
     "packages": [
         {
             "name": "brick/math",
@@ -5627,6 +5627,58 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "ddelnano/dredd-hooks-php",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ddelnano/dredd-hooks-php.git",
+                "reference": "13982f442d116deb9cf1bfe8c596c55e4df057ee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ddelnano/dredd-hooks-php/zipball/13982f442d116deb9cf1bfe8c596c55e4df057ee",
+                "reference": "13982f442d116deb9cf1bfe8c596c55e4df057ee",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "bin": [
+                "bin/dredd-hooks-php"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dredd\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Domenic Del Nano",
+                    "email": "ddelnano@gmail.com"
+                }
+            ],
+            "description": "PHP hooks for the Dredd testing tool",
+            "homepage": "https://github.com/ddelnano/dredd-hooks-php/wiki",
+            "keywords": [
+                "dredd"
+            ],
+            "support": {
+                "issues": "https://github.com/ddelnano/dredd-hooks-php/issues",
+                "source": "https://github.com/ddelnano/dredd-hooks-php/tree/master"
+            },
+            "time": "2020-06-07T05:53:14+00:00"
+        },
         {
             "name": "fakerphp/faker",
             "version": "v1.23.0",
